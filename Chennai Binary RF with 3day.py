@@ -3,12 +3,12 @@ import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
-from imblearn.over_sampling import ADASYN
+from imblearn.over_sampling import SMOTE
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # 加载数据
-file_path = 'C:/Users/shang/Desktop/IC/Sem3/Chennai/chennai_all_data NO1419.csv'
+file_path = 'C:/商天泽/IC/Sem3/All/chennai_all_data NO1419.csv'
 alandur_process_df = pd.read_csv(file_path)
 
 # 移除缺失值
@@ -35,9 +35,9 @@ target_classes = cleaned_df['ZeroTimes_Class']
 # 划分训练集和测试集
 X_train, X_test, y_train, y_test = train_test_split(features, target_classes, test_size=0.2, random_state=42)
 
-# 使用ADASYN对训练集进行过采样
-adasyn = ADASYN(random_state=42)
-X_train_resampled, y_train_resampled = adasyn.fit_resample(X_train, y_train)
+# 使用SMOTE对训练集进行过采样
+smote = SMOTE(random_state=42)
+X_train_resampled, y_train_resampled = smote.fit_resample(X_train, y_train)
 
 # 初始化随机森林模型
 rf_model = RandomForestClassifier(random_state=42)
